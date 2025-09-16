@@ -19,8 +19,8 @@ function App() {
 
   const tabs = [
     { id: "personal", label: "Personal" },
-    { id: "experience", label: "Experience" },
     { id: "education", label: "Education" },
+    { id: "experience", label: "Experience" },
     { id: "skills", label: "Skills" },
     { id: "projects", label: "Projects" },
   ];
@@ -108,24 +108,26 @@ function App() {
                       }
                       className="w-full p-2 rounded"
                     />
-                  </div>
-                )}
-
-                {activeTab === "experience" && (
-                  <div>
-                    <h2 className="text-xl font-semibold dark:text-white">
-                      Experience
-                    </h2>
-                    <textarea
-                      value={formData.experience}
+                    <p className="mt-2 dark:text-gray-200">Location:</p>
+                    <input
+                      type="text"
+                      value={formData.personal.location}
                       onChange={(e) =>
-                        handleChange("experience", null, e.target.value)
+                        handleChange("personal", "location", e.target.value)
                       }
                       className="w-full p-2 rounded"
-                      rows="4"
+                    />
+                    <p className="mt-2 dark:text-gray-200">About yourself:</p>
+                    <textarea
+                      value={formData.personal.about}
+                      onChange={(e) =>
+                        handleChange("personal", "about", e.target.value)
+                      }
+                      className="w-full p-2 rounded"
                     />
                   </div>
                 )}
+
 
                 {activeTab === "education" && (
                   <div>
@@ -139,6 +141,21 @@ function App() {
                       }
                       className="w-full p-2 rounded"
                       rows="3"
+                      />
+                  </div>
+                )}
+                {activeTab === "experience" && (
+                  <div>
+                    <h2 className="text-xl font-semibold dark:text-white">
+                      Experience
+                    </h2>
+                    <textarea
+                      value={formData.experience}
+                      onChange={(e) =>
+                        handleChange("experience", null, e.target.value)
+                      }
+                      className="w-full p-2 rounded"
+                      rows="4"
                     />
                   </div>
                 )}
@@ -196,52 +213,53 @@ function App() {
       </div>
 
       {/* Modal */}
-      {showModal && (
-      <div
-        className="fixed inset-0 bg-black bg-opacity-10 flex items-center justify-center z-50"
-        onClick={() => setShowModal(false)} // close when clicking backdrop
+{showModal && (
+  <div
+    className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50"
+    onClick={() => setShowModal(false)} // close when clicking backdrop
+  >
+    {/* Modal Content */}
+    <div
+      className="max-w-3xl w-full relative"
+      onClick={(e) => e.stopPropagation()} // stop closing when clicking inside
+    >
+      {/* Close Button */}
+      <button
+        onClick={() => setShowModal(false)}
+        className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
       >
-        {/* Modal Content */}
-        <div
-          className="bg-white dark:bg-[#393E46] p-6 rounded-lg shadow-lg max-w-3xl w-full relative"
-          onClick={(e) => e.stopPropagation()} // stop closing when clicking inside
-        >
-          {/* Close Button */}
-          <button
-            onClick={() => setShowModal(false)}
-            className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
-          >
-            ✕
-          </button>
+        ✕
+      </button>
 
-          {/* Preview */}
-          <div className="overflow-auto flex justify-center mb-4">
-            <ResumePreview data={formData} />
-          </div>
-
-          {/* Confirm Download */}
-          <PDFDownloadLink
-            document={<ResumePDF data={formData} />}
-            fileName="resume.pdf"
-          >
-            {({ loading }) =>
-              loading ? (
-                <button
-                  disabled
-                  className="px-6 py-3 bg-gray-400 text-white rounded-md"
-                >
-                  Preparing PDF...
-                </button>
-              ) : (
-                <button className="px-6 py-3 bg-green-600 text-white rounded-md shadow-md">
-                  Confirm & Download
-                </button>
-              )
-            }
-          </PDFDownloadLink>
-        </div>
+      {/* Preview */}
+      <div className="overflow-auto flex justify-center mb-4">
+        <ResumePreview data={formData} />
       </div>
-    )}
+
+      {/* Confirm Download */}
+      <PDFDownloadLink
+        document={<ResumePDF data={formData} />}
+        fileName="resume.pdf"
+      >
+        {({ loading }) =>
+          loading ? (
+            <button
+              disabled
+              className="px-6 py-3 bg-gray-400 text-white rounded-md"
+            >
+              Preparing PDF...
+            </button>
+          ) : (
+            <button className="px-6 py-3 bg-green-600 text-white rounded-md shadow-md">
+              Confirm & Download
+            </button>
+          )
+        }
+      </PDFDownloadLink>
+    </div>
+  </div>
+)}
+
     </>
   );
 }

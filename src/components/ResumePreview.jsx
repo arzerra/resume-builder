@@ -11,15 +11,17 @@ function ResumePreview({ data }) {
           sm:w-[695px] sm:h-[842px] 
           bg-white p-10 
           shadow-md rounded-xl
-          font-sans overflow-hidden
+          font-serif  overflow-hidden
         "
 
       >
-        <h1 className="text-md sm:text-2xl font-bold mb-2">
-          {data.personal.name || "Your Name"}
+        <h1 className="text-md sm:text-2xl font-bold mb-2 text-center border-b-1">
+          {data.personal.name}
         </h1>
-        <p>{data.personal.email || "your@email.com"}</p>
-        <p>{data.personal.phone || "123-456-7890"}</p>
+        <p className="text-center">  {[data.personal.email, data.personal.phone, data.personal.location]
+        .filter(Boolean) // remove empty values
+        .join(" • ")}</p>
+        <p>{data.personal.about}</p>
 
         <hr className="my-5 border-gray-300" />
 

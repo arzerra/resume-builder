@@ -13,12 +13,11 @@ const styles = StyleSheet.create({
 const ResumePDF = ({ data }) => (
   <Document>
     <Page style={styles.page}>
-      <Text style={styles.header}>Resume</Text>
+      <Text style={styles.header}>{data.personal.name}</Text>
 
       {/* Personal Info */}
       <View style={styles.section}>
         <Text style={styles.label}>Personal Information</Text>
-        <Text>{data.personal.name}</Text>
         <Text>{data.personal.email}</Text>
         <Text>{data.personal.phone}</Text>
       </View>
