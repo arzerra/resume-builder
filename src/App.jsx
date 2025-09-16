@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import ResumePDF from "./components/ResumePdf.jsx";
 import Darkmode from "./components/Darkmode.jsx";
 import ResumePreview from "./components/ResumePreview";
 
-
 function App() {
   const [activeTab, setActiveTab] = useState("personal");
+  const [showModal, setShowModal] = useState(false); // modal state
 
   // Store form data
   const [formData, setFormData] = useState({
@@ -14,7 +14,7 @@ function App() {
     experience: "",
     education: "",
     skills: "",
-    projects: ""
+    projects: "",
   });
 
   const tabs = [
@@ -22,7 +22,7 @@ function App() {
     { id: "experience", label: "Experience" },
     { id: "education", label: "Education" },
     { id: "skills", label: "Skills" },
-    { id: "projects", label: "Projects" }
+    { id: "projects", label: "Projects" },
   ];
 
   // Handle text input changes
@@ -30,7 +30,7 @@ function App() {
     if (section === "personal") {
       setFormData({
         ...formData,
-        personal: { ...formData.personal, [field]: value }
+        personal: { ...formData.personal, [field]: value },
       });
     } else {
       setFormData({ ...formData, [section]: value });
@@ -48,7 +48,8 @@ function App() {
         <div className="max-w-[1500px] w-full mx-auto px-4 sm:px-6">
           <div>
             <h1 className="text-3xl sm:text-5xl font-bold mb-2 dark:text-white">
-              Resume Builder <span className="text-lg sm:text-2xl">by Clark</span>
+              Resume Builder{" "}
+              <span className="text-lg sm:text-2xl">by Clark</span>
             </h1>
             <p className="text-sm sm:text-base dark:text-gray-300 mb-6">
               Create. Customize. Land the job.
@@ -77,26 +78,34 @@ function App() {
               <div className="bg-[#F7F7F7] dark:bg-[#393E46] p-6 rounded-lg shadow-md">
                 {activeTab === "personal" && (
                   <div>
-                    <h2 className="text-xl font-semibold dark:text-white">Personal Information</h2>
+                    <h2 className="text-xl font-semibold dark:text-white">
+                      Personal Information
+                    </h2>
                     <p className="mt-2 dark:text-gray-200">Full Name:</p>
                     <input
                       type="text"
                       value={formData.personal.name}
-                      onChange={(e) => handleChange("personal", "name", e.target.value)}
+                      onChange={(e) =>
+                        handleChange("personal", "name", e.target.value)
+                      }
                       className="w-full p-2 rounded"
                     />
                     <p className="mt-2 dark:text-gray-200">Email Address:</p>
                     <input
                       type="email"
                       value={formData.personal.email}
-                      onChange={(e) => handleChange("personal", "email", e.target.value)}
+                      onChange={(e) =>
+                        handleChange("personal", "email", e.target.value)
+                      }
                       className="w-full p-2 rounded"
                     />
                     <p className="mt-2 dark:text-gray-200">Phone:</p>
                     <input
                       type="tel"
                       value={formData.personal.phone}
-                      onChange={(e) => handleChange("personal", "phone", e.target.value)}
+                      onChange={(e) =>
+                        handleChange("personal", "phone", e.target.value)
+                      }
                       className="w-full p-2 rounded"
                     />
                   </div>
@@ -104,10 +113,14 @@ function App() {
 
                 {activeTab === "experience" && (
                   <div>
-                    <h2 className="text-xl font-semibold dark:text-white">Experience</h2>
+                    <h2 className="text-xl font-semibold dark:text-white">
+                      Experience
+                    </h2>
                     <textarea
                       value={formData.experience}
-                      onChange={(e) => handleChange("experience", null, e.target.value)}
+                      onChange={(e) =>
+                        handleChange("experience", null, e.target.value)
+                      }
                       className="w-full p-2 rounded"
                       rows="4"
                     />
@@ -116,10 +129,14 @@ function App() {
 
                 {activeTab === "education" && (
                   <div>
-                    <h2 className="text-xl font-semibold dark:text-white">Education</h2>
+                    <h2 className="text-xl font-semibold dark:text-white">
+                      Education
+                    </h2>
                     <textarea
                       value={formData.education}
-                      onChange={(e) => handleChange("education", null, e.target.value)}
+                      onChange={(e) =>
+                        handleChange("education", null, e.target.value)
+                      }
                       className="w-full p-2 rounded"
                       rows="3"
                     />
@@ -128,10 +145,14 @@ function App() {
 
                 {activeTab === "skills" && (
                   <div>
-                    <h2 className="text-xl font-semibold dark:text-white">Skills</h2>
+                    <h2 className="text-xl font-semibold dark:text-white">
+                      Skills
+                    </h2>
                     <textarea
                       value={formData.skills}
-                      onChange={(e) => handleChange("skills", null, e.target.value)}
+                      onChange={(e) =>
+                        handleChange("skills", null, e.target.value)
+                      }
                       className="w-full p-2 rounded"
                       rows="3"
                     />
@@ -140,10 +161,14 @@ function App() {
 
                 {activeTab === "projects" && (
                   <div>
-                    <h2 className="text-xl font-semibold dark:text-white">Projects</h2>
+                    <h2 className="text-xl font-semibold dark:text-white">
+                      Projects
+                    </h2>
                     <textarea
                       value={formData.projects}
-                      onChange={(e) => handleChange("projects", null, e.target.value)}
+                      onChange={(e) =>
+                        handleChange("projects", null, e.target.value)
+                      }
                       className="w-full p-2 rounded"
                       rows="3"
                     />
@@ -152,32 +177,71 @@ function App() {
               </div>
             </div>
 
-            {/* Right Panel with PDF Preview + Download */}
+            {/* Right Panel */}
             <div className="border flex flex-col items-center justify-center p-4">
-            <div className="overflow-auto flex justify-center">
-              <ResumePreview data={formData} />
+              <div className="overflow-auto flex justify-center">
+                <ResumePreview data={formData} />
+              </div>
+
+              {/* Button to open modal */}
+              <button
+                onClick={() => setShowModal(true)}
+                className="px-6 py-3 mt-4 bg-blue-600 text-white rounded-md shadow-md"
+              >
+                Preview & Download
+              </button>
             </div>
-
-            <PDFDownloadLink
-              document={<ResumePDF data={formData} />}
-              fileName="resume.pdf"
-            >
-              {({ loading }) =>
-                loading ? (
-                  "Preparing PDF..."
-                ) : (
-                  <button className="px-6 py-3 mt-4 bg-blue-600 text-white rounded-md shadow-md">
-                    Download PDF
-                  </button>
-                )
-              }
-            </PDFDownloadLink>
-          </div>
-
-
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {showModal && (
+      <div
+        className="fixed inset-0 bg-black bg-opacity-10 flex items-center justify-center z-50"
+        onClick={() => setShowModal(false)} // close when clicking backdrop
+      >
+        {/* Modal Content */}
+        <div
+          className="bg-white dark:bg-[#393E46] p-6 rounded-lg shadow-lg max-w-3xl w-full relative"
+          onClick={(e) => e.stopPropagation()} // stop closing when clicking inside
+        >
+          {/* Close Button */}
+          <button
+            onClick={() => setShowModal(false)}
+            className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+          >
+            ✕
+          </button>
+
+          {/* Preview */}
+          <div className="overflow-auto flex justify-center mb-4">
+            <ResumePreview data={formData} />
+          </div>
+
+          {/* Confirm Download */}
+          <PDFDownloadLink
+            document={<ResumePDF data={formData} />}
+            fileName="resume.pdf"
+          >
+            {({ loading }) =>
+              loading ? (
+                <button
+                  disabled
+                  className="px-6 py-3 bg-gray-400 text-white rounded-md"
+                >
+                  Preparing PDF...
+                </button>
+              ) : (
+                <button className="px-6 py-3 bg-green-600 text-white rounded-md shadow-md">
+                  Confirm & Download
+                </button>
+              )
+            }
+          </PDFDownloadLink>
+        </div>
+      </div>
+    )}
     </>
   );
 }
