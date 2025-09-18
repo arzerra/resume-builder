@@ -1,59 +1,174 @@
-// src/components/ResumePreview.jsx
+// src/components/ResumePDF.jsx
 import React from "react";
+import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 
-function ResumePreview({ data }) {
-  return (
-    <div className="w-full flex justify-center">
-      <div
-        className="
-          w-[330px] sm:w-[595px] h-[842px] 
-          bg-white p-10 shadow-md rounded-md 
-          leading-relaxed
-        "
-        style={{ fontFamily: "'Times New Roman', Times, serif" }}
-      >
-        {/* PERSONAL */}
-        <h1 className="text-[24px] font-bold text-center border-b border-gray-300 pb-1 mb-2">
-          {data.personal.name || "Your Name"}
-        </h1>
-        <p className="text-[12px] text-center text-gray-600 mb-4">
-          {[data.personal.phone, data.personal.email, data.personal.location]
-            .filter(Boolean)
-            .join(" • ")}
-        </p>
+// Styles for the PDF
+const styles = StyleSheet.create({
+  page: {
+    padding: 40,
+    fontSize: 11,
+    fontFamily: "Times-Roman", // closest to serif
+    backgroundColor: "white",
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 4,
+    textAlign: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    paddingBottom: 4,
+  },
+  subHeader: {
+    fontSize: 12,
+    marginBottom: 5,
+    textAlign: "center",
+    color: "#444",
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 10,
+    marginBottom: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    paddingBottom: 2,
+  },
+  section: {
+    marginBottom: 10,
+  },
+  flexRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+  },
+  textBold: {
+    fontSize: 12,
+    fontWeight: "bold",
+    marginBottom: 1,
+  },
+  text: {
+    fontSize: 11,
+    marginBottom: 2,
+  },
+});
 
-        {/* EDUCATION */}
-        <h2 className="text-[16px] font-bold border-b border-gray-300 pb-1 mb-2">
-          Education
-        </h2>
-        <div className="flex justify-between items-start mb-3">
-          <div>
-            <p className="text-[14px] font-semibold">{data.education.school}</p>
-            <p className="text-[13px]">{data.education.course}</p>
-          </div>
-          <p className="text-[13px]">{data.education.year}</p>
-        </div>
+const ResumePDF = ({ data }) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      {/* PERSONAL */}
+      <Text style={styles.header}>{data.personal.name || "Your Name"}</Text>
+      <Text style={styles.subHeader}>
+        {[data.personal.phone, data.personal.email, data.personal.location]
+          .filter(Boolean)
+          .join(" • ")}
+      </Text>
 
-        {/* EXPERIENCE */}
-        <h2 className="text-[16px] font-bold border-b border-gray-300 pb-1 mb-2">
-          Experience
-        </h2>
-        <p className="text-[13px] mb-3">{data.experience}</p>
+      {/* EDUCATION */}
+      <Text style={styles.sectionTitle}>Education</Text>
+      {data.education.map((edu, index) => (
+        <View key={index} style={[styles.flexRow, styles.section]}>
+          <View>
+            <Text style={styles.textBold}>{edu.school}</Text>
+            <Text style={styles.text}>{edu.course}</Text>
+          </View>
+          <View>
+            <Text style={styles.text}>{edu.year}</Text>
+          </View>
+        </View>
+      ))}
 
-        {/* SKILLS */}
-        <h2 className="text-[16px] font-bold border-b border-gray-300 pb-1 mb-2">
-          Skills
-        </h2>
-        <p className="text-[13px] mb-3">{data.skills}</p>
 
-        {/* PROJECTS */}
-        <h2 className="text-[16px] font-bold border-b border-gray-300 pb-1 mb-2">
-          Projects
-        </h2>
-        <p className="text-[13px]">{data.projects}</p>
-      </div>
-    </div>
-  );
-}
+      {/* EXPERIENCE */}
+      <Text style={styles.sectionTitle}>Experience</Text>
+      {data.experience && data.experience.length > 0 ? (
+        data.experience.map((exp, index) => (
+          <View key={index} style={styles.section}>
+            <View style={styles.flexRow}>
+              <View>
+                <Text style={styles.textBold}>{exp.company}</Text>
+                <Text style={styles.text}>{exp.role}</Text>
+              </View>
+              <View>
+                <Text style={styles.text}>{exp.year}</Text>
+              </View>
+            </View>
+            {exp.description ? (
+              <Text style={styles.text}>{exp.description}</Text>
+            ) : null}
+          </View>
+        ))
+      ) : (
+        <Text style={styles.text}>No experience added</Text>
+      )}
 
-export default ResumePreview;
+      {/* SKILLS */}
+      <Text style={styles.sectionTitle}>Skills</Text>
+      {data.skills && data.skills.length > 0 ? (
+        <Text style={styles.text}>{data.skills.join(", ")}</Text>
+      ) : (
+        <Text style={styles.text}>No skills added</Text>
+      )}
+
+
+      {/* PROJECTS */}
+      <Text style={styles.sectionTitle}>Projects</Text>
+      {data.projects && data.projects.length > 0 ? (
+        data.projects.map((proj, index) => (
+          <View key={index} style={styles.section}>
+            {/* Top row: Name + Tags */}
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" }}>
+              {/* Left side: name */}
+              <View>
+                <Text style={styles.textBold}>{proj.name}</Text>
+              </View>
+
+              {/* Right side: tags */}
+              <View style={{ maxWidth: 150, textAlign: "right" }}>
+                <Text style={styles.text}>
+                  {proj.tags && proj.tags.length > 0 ? proj.tags.join(", ") : ""}
+                </Text>
+              </View>
+            </View>
+
+            {/* Description below (full width) */}
+            {proj.description ? (
+              <Text style={[styles.text, { marginTop: 4, textAlign: "justify" }]}>
+                {proj.description}
+              </Text>
+            ) : null}
+          </View>
+        ))
+      ) : (
+        <Text style={styles.text}>No projects added</Text>
+      )}
+
+
+       {/* CERTIFICATES */}
+      <Text style={styles.sectionTitle}>Certificates</Text>
+      {data.certificates && data.certificates.length > 0 ? (
+        data.certificates.map((cert, index) => (
+          <View key={index} style={[styles.section]}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+              <View>
+                <Text style={styles.textBold}>{cert.name}</Text>
+                <Text style={styles.text}>{cert.issuer}</Text>
+              </View>
+              <Text style={styles.text}>{cert.year}</Text>
+            </View>
+          </View>
+        ))
+      ) : (
+        <Text style={styles.text}>No certificates added</Text>
+      )}
+
+
+
+
+
+
+    </Page>
+  </Document>
+);
+
+export default ResumePDF;

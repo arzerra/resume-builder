@@ -7,7 +7,7 @@ function ResumePreview({ data }) {
         className="
           transform origin-top
           scale-100 sm:scale-100
-          w-[330px] h-[842px]
+          w-full h-[842px]
           sm:w-[595px] sm:h-[842px] 
           bg-white p-10 
           shadow-md rounded-xl
@@ -16,10 +16,10 @@ function ResumePreview({ data }) {
         style={{ fontFamily: "'Times New Roman', Times, serif" }}
       >
         {/* PERSONAL */}
-        <h1 className="text-[24px] font-bold mb-2 text-center border-b border-gray-300">
+        <h1 className="text-[24px] font-bold mb-1 text-center border-b border-gray-300 ">
           {data.personal.name || "Your Name"}
         </h1>
-        <p className="text-center text-gray-600 text-[12px] mb-4">
+        <p className="text-center text-[12px] mb-4 text-[#444]">
           {[data.personal.phone, data.personal.email, data.personal.location]
             .filter(Boolean)
             .join(" • ")}
@@ -29,35 +29,113 @@ function ResumePreview({ data }) {
         <h2 className="text-[16px] font-bold mb-1 border-b border-gray-300 mt-4">
           Education
         </h2>
-        <div className="flex flex-row justify-between items-start">
-          <div className="text-start">
-            <p className="text-[14px] font-semibold">
-              {data.education.school}
-            </p>
-            <p className="text-[13px] mb-1">{data.education.course}</p>
+        {data.education.map((edu, index) => (
+          <div
+            key={index}
+            className="flex flex-row justify-between items-start mb-2"
+          >
+            <div className="text-start">
+              <p className="text-[14px] font-semibold">{edu.school}</p>
+              <p className="text-[13px] mb-1">{edu.course}</p>
+            </div>
+            <div className="text-end">
+              <p className="text-[13px]">{edu.year}</p>
+            </div>
           </div>
-          <div className="text-end">
-            <p className="text-[13px]">{data.education.year}</p>
-          </div>
-        </div>
+        ))}
+
 
         {/* EXPERIENCE */}
         <h2 className="text-[16px] font-bold mb-1 border-b border-gray-300 mt-4">
           Experience
         </h2>
-        <p className="text-[13px] mb-4">{data.experience}</p>
+        {data.experience.map((exp, index) => (
+          <div key={index} className="mb-3">
+            <div className="flex flex-row justify-between items-start">
+              <div>
+                <p className="text-[14px] font-semibold">{exp.company}</p>
+                <p className="text-[13px] italic">{exp.role}</p>
+              </div>
+              <p className="text-[13px]">{exp.year}</p>
+            </div>
+            {exp.description && (
+              <p className="text-[12px] text-gray-700 mt-1 text-justify break-words whitespace-normal max-w-full">
+              {exp.description}
+              </p>
+            )}
+          </div>
+        ))}
+
 
         {/* SKILLS */}
         <h2 className="text-[16px] font-bold mb-1 border-b border-gray-300 mt-4">
           Skills
         </h2>
-        <p className="text-[13px] mb-4">{data.skills}</p>
+        <div className="mb-4 text-justify">
+          {data.skills.length > 0 ? (
+            <p className="text-[13px]">
+              {data.skills.join(", ")}
+            </p>
+          ) : (
+            <p className="text-[13px] text-gray-500">No skills added</p>
+          )}
+        </div>
+
 
         {/* PROJECTS */}
         <h2 className="text-[16px] font-bold mb-1 border-b border-gray-300 mt-4">
           Projects
         </h2>
-        <p className="text-[13px]">{data.projects}</p>
+        {data.projects && data.projects.length > 0 ? (
+          data.projects.map((proj, index) => (
+            <div key={index} className="mb-3">
+              <div className="flex flex-row justify-between items-start">
+                {/* Left side: name */}
+                <div>
+                  <p className="text-[14px] font-semibold">{proj.name}</p>
+                </div>
+
+                {/* Right side: tags */}
+                <div className="text-end text-[12px] text-gray-600 break-words whitespace-normal max-w-[200px]">
+                  {proj.tags && proj.tags.length > 0 ? proj.tags.join(", ") : ""}
+                </div>
+              </div>
+
+              {/* Description below, full width just like Experience */}
+              {proj.description && (
+                <p className="text-[12px] text-gray-700 mt-1 text-justify break-words whitespace-normal max-w-full">
+                  {proj.description}
+                </p>
+              )}
+            </div>
+          ))
+        ) : (
+          <p className="text-[13px] text-gray-500">No projects added</p>
+        )}
+
+         {/* CERTIFICATES */}
+        <h2 className="text-[16px] font-bold mb-1 border-b border-gray-300 mt-4">
+          Certificates
+        </h2>
+        {data.certificates && data.certificates.length > 0 ? (
+          data.certificates.map((cert, index) => (
+            <div key={index} className="mb-3">
+              <div className="flex flex-row justify-between items-start">
+                <div>
+                  <p className="text-[14px] font-semibold">{cert.name}</p>
+                  <p className="text-[13px] italic">{cert.issuer}</p>
+                </div>
+                <p className="text-[13px]">{cert.year}</p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="text-[13px] text-gray-500">No certificates added</p>
+        )}
+
+
+
+
       </div>
     </div>
   );
