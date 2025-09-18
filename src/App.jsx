@@ -216,7 +216,8 @@ function App() {
 
             {/* Right Panel */}
             <div className="flex flex-col items-center justify-center p-4">
-              <div className="overflow-auto flex justify-center">
+              {/* Scrollable preview container */}
+              <div className="flex justify-center w-full max-h-[550px] overflow-y-auto rounded-md bg-gray-50">
                 <ResumePreview data={formData} />
               </div>
 
@@ -228,11 +229,12 @@ function App() {
                 Preview & Download
               </button>
             </div>
+
           </div>
           
           {/* FOOTER */}
-          <div className="flex flex-col items-center justify-center py-5">
-              <h1>© Ian Clark L. Cañete 2025 - All Rights Reserved</h1>
+          <div className="flex flex-col items-center justify-center py-5 dark:text-white">
+              <h1>&copy; Ian Clark L. Cañete 2025 - All Rights Reserved</h1>
               <div className="flex flex-row gap-2 mt-2 sm:mt-2">
                 <a href="https://www.facebook.com/Ic.0716" target="_blank" rel="noopener noreferrer">
                   <FaFacebook className="text-lg cursor-pointer" />
@@ -251,15 +253,15 @@ function App() {
       {/* Modal */}
       {showModal && (
         <div
-          className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50"
-          onClick={() => setShowModal(false)} // close when clicking backdrop
+          className="fixed inset-0 bg-black/30 border backdrop-blur-sm flex items-center justify-center z-50"
+          onClick={() => setShowModal(false)}
         >
-          {/* Modal Content */}
+
           <div
-            className="max-w-3xl w-full relative"
-            onClick={(e) => e.stopPropagation()} // stop closing when clicking inside
+            className="max-w-[595px] w-full relative border"
+            onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
+
             <button
               onClick={() => setShowModal(false)}
               className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
@@ -267,8 +269,7 @@ function App() {
               ✕
             </button>
 
-            {/* Preview */}
-            <div className="overflow-auto flex justify-center mb-4">
+            <div className="overflow-auto flex justify-center">
               <ResumePreview data={formData} />
             </div>
 
@@ -286,7 +287,7 @@ function App() {
                     Preparing PDF...
                   </button>
                 ) : (
-                  <button className="px-6 py-3 bg-green-600 text-white rounded-md shadow-md">
+                  <button className="px-6 py-3 bg-green-600 text-white rounded-md shadow-md z-50">
                     Confirm & Download
                   </button>
                 )

@@ -11,54 +11,53 @@ function ResumePreview({ data }) {
           sm:w-[595px] sm:h-[842px] 
           bg-white p-10 
           shadow-md rounded-xl
-          font-serif  overflow-hidden
+          overflow-hidden
         "
-
+        style={{ fontFamily: "'Times New Roman', Times, serif" }}
       >
         {/* PERSONAL */}
-        <h1 className="text-md sm:text-[18px] font-bold mb-2 text-center border-b-1 border-gray-300">
-          {data.personal.name}
+        <h1 className="text-[24px] font-bold mb-2 text-center border-b border-gray-300">
+          {data.personal.name || "Your Name"}
         </h1>
-        <p className="text-center">  {[data.personal.phone, data.personal.email, data.personal.location]
-        .filter(Boolean)
-        .join(" • ")}</p>
-
+        <p className="text-center text-gray-600 text-[12px] mb-4">
+          {[data.personal.phone, data.personal.email, data.personal.location]
+            .filter(Boolean)
+            .join(" • ")}
+        </p>
 
         {/* EDUCATION */}
-        <h2 className="text-sm sm:text-xl font-semibold mb-1 border-b-1 border-gray-300 mt-4">Education</h2>
+        <h2 className="text-[16px] font-bold mb-1 border-b border-gray-300 mt-4">
+          Education
+        </h2>
         <div className="flex flex-row justify-between items-start">
           <div className="text-start">
-            <p className="text-xl mb-1">
+            <p className="text-[14px] font-semibold">
               {data.education.school}
             </p>
-            <p className="mb-1">
-              {data.education.course}
-            </p>
+            <p className="text-[13px] mb-1">{data.education.course}</p>
           </div>
           <div className="text-end">
-            <p className="text-xl mb-1">
-              {data.education.year}
-            </p>
+            <p className="text-[13px]">{data.education.year}</p>
           </div>
         </div>
 
-
-
         {/* EXPERIENCE */}
-        <h2 className="text-sm sm:text-xl font-semibold mb-1 border-b-1 border-gray-300 mt-4">Experience</h2>
-        <p className="mb-4">
-          {data.experience}
-        </p>
+        <h2 className="text-[16px] font-bold mb-1 border-b border-gray-300 mt-4">
+          Experience
+        </h2>
+        <p className="text-[13px] mb-4">{data.experience}</p>
 
         {/* SKILLS */}
-        <h2 className="text-sm sm:text-xl font-semibold mb-1 border-b-1 border-gray-300 mt-4">Skills</h2>
-        <p className="mb-4">
-          {data.skills}
-        </p>
+        <h2 className="text-[16px] font-bold mb-1 border-b border-gray-300 mt-4">
+          Skills
+        </h2>
+        <p className="text-[13px] mb-4">{data.skills}</p>
 
         {/* PROJECTS */}
-        <h2 className="text-sm sm:text-xl font-semibold mb-1 border-b-1 border-gray-300 mt-4">Projects</h2>
-        <p>{data.projects}</p>
+        <h2 className="text-[16px] font-bold mb-1 border-b border-gray-300 mt-4">
+          Projects
+        </h2>
+        <p className="text-[13px]">{data.projects}</p>
       </div>
     </div>
   );
