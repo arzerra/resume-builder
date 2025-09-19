@@ -48,7 +48,7 @@ function App() {
   return (
     <>
       <div className="w-full min-h-screen bg-[#F2F2F2] dark:bg-[#222831] font-['Quicksand']">
-        <div className="max-w-[1300px] w-full mx-auto px-4 sm:px-0">
+        <div className="max-w-[1300px] w-full mx-auto px-4">
           
           <div className="flex flex-row items-center justify-between pt-5 sm:pt-15 pb-0">
             <div className="flex flex-col items-start justify-start text-start mt-8">
