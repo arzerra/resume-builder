@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   header: {
-    fontSize: 24, // matches preview
+    fontSize: 24, 
     fontWeight: "bold",
     marginBottom: 4,
     textAlign: "center",
@@ -20,13 +20,13 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
   },
   subHeader: {
-    fontSize: 12, // matches preview
+    fontSize: 12,
     marginBottom: 8,
     textAlign: "center",
     color: "#444",
   },
   sectionTitle: {
-    fontSize: 16, // matches preview
+    fontSize: 16,
     fontWeight: "bold",
     marginTop: 12,
     marginBottom: 6,
@@ -43,17 +43,17 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   textBold: {
-    fontSize: 14, // matches preview
+    fontSize: 14,
     fontWeight: "bold",
     marginBottom: 1,
   },
   textItalic: {
-    fontSize: 13, // matches preview
+    fontSize: 13,
     fontStyle: "italic",
     marginBottom: 2,
   },
   text: {
-    fontSize: 12, // matches preview
+    fontSize: 12,
     marginBottom: 2,
     textAlign: "justify",
   },
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
 const ResumePDF = ({ data }) => (
   <Document>
     <Page size="A4" style={styles.page}>
+
       {/* PERSONAL */}
       <Text style={styles.header}>{data.personal.name || "Your Name"}</Text>
       <Text style={styles.subHeader}>
@@ -84,7 +85,6 @@ const ResumePDF = ({ data }) => (
           </View>
         </View>
       ))}
-
 
       {/* EXPERIENCE */}
       <Text style={styles.sectionTitle}>Experience</Text>
@@ -117,20 +117,16 @@ const ResumePDF = ({ data }) => (
         <Text style={styles.text}>No skills added</Text>
       )}
 
-
       {/* PROJECTS */}
       <Text style={styles.sectionTitle}>Projects</Text>
       {data.projects && data.projects.length > 0 ? (
         data.projects.map((proj, index) => (
           <View key={index} style={styles.section}>
-            {/* Top row: Name + Tags */}
             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" }}>
-              {/* Left side: name */}
               <View>
                 <Text style={styles.textBold}>{proj.name}</Text>
               </View>
 
-              {/* Right side: tags */}
               <View style={{ maxWidth: 150, textAlign: "right" }}>
                 <Text style={styles.text}>
                   {proj.tags && proj.tags.length > 0 ? proj.tags.join(", ") : ""}
@@ -138,7 +134,6 @@ const ResumePDF = ({ data }) => (
               </View>
             </View>
 
-            {/* Description below (full width) */}
             {proj.description ? (
               <Text style={[styles.text, { marginTop: 4, textAlign: "justify" }]}>
                 {proj.description}
@@ -150,7 +145,6 @@ const ResumePDF = ({ data }) => (
         <Text style={styles.text}>No projects added</Text>
       )}
 
-
        {/* CERTIFICATES */}
       <Text style={styles.sectionTitle}>Certificates</Text>
       {data.certificates && data.certificates.length > 0 ? (
@@ -159,10 +153,10 @@ const ResumePDF = ({ data }) => (
             <View
               key={index}
               style={{
-                width: "50%", // 2 per row
+                width: "50%",
                 paddingRight: 8,
                 marginBottom: 6,
-                borderBottom: "1pt solid #ccc", // underline effect
+                borderBottom: "1pt solid #ccc",
                 paddingBottom: 4,
               }}
             >
@@ -170,7 +164,7 @@ const ResumePDF = ({ data }) => (
                 style={{
                   flexDirection: "row",
                   justifyContent: "space-between",
-                  alignItems: "start", // aligns year with name
+                  alignItems: "start",
                 }}
               >
                 <View>

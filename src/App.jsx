@@ -144,7 +144,6 @@ function App() {
                         index > 0 ? "border-t border-gray-300" : ""
                       }`}
                     >
-                      {/* Delete button */}
                       {index > 0 && (
                         <button
                           onClick={() => {
@@ -189,8 +188,6 @@ function App() {
                     </div>
                   ))}
 
-
-                  {/* Add More Button */}
                   <button
                     onClick={() =>
                       setFormData({
@@ -208,347 +205,327 @@ function App() {
                 </div>
               )}
 
+              {/* EXPERIENCE */}
+              {activeTab === "experience" && (
+                <div>
+                  <h2 className="text-xl font-semibold dark:text-white">Experience</h2>
 
-
-
-                {/* EXPERIENCE */}
-                {activeTab === "experience" && (
-                  <div>
-                    <h2 className="text-xl font-semibold dark:text-white">Experience</h2>
-
-                    {formData.experience.map((exp, index) => (
-                      <div
-                        key={index}
-                        className={`relative mb-4 pb-2 ${
-                          index > 0 ? "border-t border-gray-300" : ""
-                        }`}
-                      >
-                        {/* Delete button */}
-                        {index > 0 && (
-                          <button
-                            onClick={() => {
-                              const updatedExperience = formData.experience.filter(
-                                (_, i) => i !== index
-                              );
-                              setFormData({ ...formData, experience: updatedExperience });
-                            }}
-                            className="absolute text-3xl -top-1 right-0 text-black hover:text-red-700 leading-none"
-                          >
-                            ×
-                          </button>
-                        )}
-
-                        <p className="mt-2 dark:text-gray-200">Company:</p>
-                        <input
-                          type="text"
-                          value={exp.company}
-                          onChange={(e) =>
-                            handleChange("experience", "company", e.target.value, index)
-                          }
-                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
-                        />
-
-                        <p className="mt-2 dark:text-gray-200">Role/Title:</p>
-                        <input
-                          type="text"
-                          value={exp.role}
-                          onChange={(e) =>
-                            handleChange("experience", "role", e.target.value, index)
-                          }
-                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
-                        />
-
-                        <p className="mt-2 dark:text-gray-200">Year:</p>
-                        <input
-                          type="text"
-                          value={exp.year}
-                          onChange={(e) =>
-                            handleChange("experience", "year", e.target.value, index)
-                          }
-                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
-                        />
-
-                        <p className="mt-2 dark:text-gray-200">Description:</p>
-                        <textarea
-                          value={exp.description}
-                          onChange={(e) =>
-                            handleChange("experience", "description", e.target.value, index)
-                          }
-                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
-                          rows="3"
-                        />
-
-                      </div>
-                    ))}
-
-                    {/* Add More Button */}
-                    <button
-                      onClick={() =>
-                        setFormData({
-                          ...formData,
-                          experience: [
-                            ...formData.experience,
-                            { company: "", role: "", description: "", year: "" },
-                          ],
-                        })
-                      }
-                      className="mt-2 px-4 py-2 bg-black dark:bg-white text-sm text-white dark:text-black rounded-3xl"
+                  {formData.experience.map((exp, index) => (
+                    <div
+                      key={index}
+                      className={`relative mb-4 pb-2 ${
+                        index > 0 ? "border-t border-gray-300" : ""
+                      }`}
                     >
-                      + Add More
-                    </button>
-                  </div>
-                )}
-
-
-
-
-                {/* SKILLS */}
-                {activeTab === "skills" && (
-                  <div>
-                    <h2 className="text-xl font-semibold dark:text-white">Tech Stacks</h2>
-
-                    {/* Predefined tags */}
-                    <div className="flex flex-wrap justify-between gap-2 mt-2">
-                      {["NodeJS", "Express", "Laravel", "TailwindCSS", "JSON", "jQuery", "React",
-                        "Next.js", "Vue.js", "Angular", "TypeScript", "JavaScript", "HTML5",
-                        "CSS3", "Bootstrap", "Sass", "PHP", "MySQL", "PostgreSQL", "MongoDB", "SQLite",
-                        "REST API", "GraphQL", "Docker", "Git", "GitHub", "Firebase", "Vercel"].map(
-                        (tag) => (
-                          <button
-                            key={tag}
-                            type="button"
-                            onClick={() => {
-                              if (!formData.skills.includes(tag)) {
-                                setFormData({
-                                  ...formData,
-                                  skills: [...formData.skills, tag],
-                                });
-                              }
-                            }}
-                            className={`px-3 py-1 text-sm rounded-full cursor-pointer ${
-                              formData.skills.includes(tag)
-                                ? "bg-gray-300 dark:bg-gray-900 text-white"
-                                : "bg-black dark:bg-white text-white dark:text-black"
-                            }`}
-                          >
-                            {tag}
-                          </button>
-                        )
-                      )}
-                    </div>
-
-                    {/* Show selected skills */}
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {formData.skills.map((skill, index) => (
-                        <span
-                          key={index}
+                      {index > 0 && (
+                        <button
                           onClick={() => {
+                            const updatedExperience = formData.experience.filter(
+                              (_, i) => i !== index
+                            );
+                            setFormData({ ...formData, experience: updatedExperience });
+                          }}
+                          className="absolute text-3xl -top-1 right-0 text-black hover:text-red-700 leading-none"
+                        >
+                          ×
+                        </button>
+                      )}
+
+                      <p className="mt-2 dark:text-gray-200">Company:</p>
+                      <input
+                        type="text"
+                        value={exp.company}
+                        onChange={(e) =>
+                          handleChange("experience", "company", e.target.value, index)
+                        }
+                        className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
+                      />
+
+                      <p className="mt-2 dark:text-gray-200">Role/Title:</p>
+                      <input
+                        type="text"
+                        value={exp.role}
+                        onChange={(e) =>
+                          handleChange("experience", "role", e.target.value, index)
+                        }
+                        className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
+                      />
+
+                      <p className="mt-2 dark:text-gray-200">Year:</p>
+                      <input
+                        type="text"
+                        value={exp.year}
+                        onChange={(e) =>
+                          handleChange("experience", "year", e.target.value, index)
+                        }
+                        className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
+                      />
+
+                      <p className="mt-2 dark:text-gray-200">Description:</p>
+                      <textarea
+                        value={exp.description}
+                        onChange={(e) =>
+                          handleChange("experience", "description", e.target.value, index)
+                        }
+                        className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
+                        rows="3"
+                      />
+
+                    </div>
+                  ))}
+
+                  <button
+                    onClick={() =>
+                      setFormData({
+                        ...formData,
+                        experience: [
+                          ...formData.experience,
+                          { company: "", role: "", description: "", year: "" },
+                        ],
+                      })
+                    }
+                    className="mt-2 px-4 py-2 bg-black dark:bg-white text-sm text-white dark:text-black rounded-3xl"
+                  >
+                    + Add More
+                  </button>
+                </div>
+              )}
+
+              {/* SKILLS */}
+              {activeTab === "skills" && (
+                <div>
+                  <h2 className="text-xl font-semibold dark:text-white">Tech Stacks</h2>
+
+                  <div className="flex flex-wrap justify-between gap-2 mt-2">
+                    {["NodeJS", "Express", "Laravel", "TailwindCSS", "JSON", "jQuery", "React",
+                      "Next.js", "Vue.js", "Angular", "TypeScript", "JavaScript", "HTML5",
+                      "CSS3", "Bootstrap", "Sass", "PHP", "MySQL", "PostgreSQL", "MongoDB", "SQLite",
+                      "REST API", "GraphQL", "Docker", "Git", "GitHub", "Firebase", "Vercel"].map(
+                      (tag) => (
+                        <button
+                          key={tag}
+                          type="button"
+                          onClick={() => {
+                            if (!formData.skills.includes(tag)) {
                               setFormData({
                                 ...formData,
-                                skills: formData.skills.filter((s) => s !== skill),
+                                skills: [...formData.skills, tag],
                               });
-                            }}
-                          className="px-3 py-1 bg-[#118B50] text-white rounded-full text-sm flex items-center gap-2 cursor-pointer"
+                            }
+                          }}
+                          className={`px-3 py-1 text-sm rounded-full cursor-pointer ${
+                            formData.skills.includes(tag)
+                              ? "bg-gray-300 dark:bg-gray-900 text-white"
+                              : "bg-black dark:bg-white text-white dark:text-black"
+                          }`}
                         >
-                          {skill}
-                          <button
-                            type="button"
-                            className="text-xl"
-                          >
-                            ×
-                          </button>
-                        </span>
-                      ))}
-                    </div>
+                          {tag}
+                        </button>
+                      )
+                    )}
+                  </div>
 
-                    {/* Custom skill input */}
-                    <input
-                      type="text"
-                      placeholder="Add More"
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" && e.target.value.trim()) {
-                          e.preventDefault();
-                          const newSkill = e.target.value.trim();
-                          if (!formData.skills.includes(newSkill)) {
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {formData.skills.map((skill, index) => (
+                      <span
+                        key={index}
+                        onClick={() => {
                             setFormData({
                               ...formData,
-                              skills: [...formData.skills, newSkill],
+                              skills: formData.skills.filter((s) => s !== skill),
                             });
-                          }
-                          e.target.value = "";
+                          }}
+                        className="px-3 py-1 bg-[#118B50] text-white rounded-full text-sm flex items-center gap-2 cursor-pointer"
+                      >
+                        {skill}
+                        <button
+                          type="button"
+                          className="text-xl"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+
+                  <input
+                    type="text"
+                    placeholder="Add More"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && e.target.value.trim()) {
+                        e.preventDefault();
+                        const newSkill = e.target.value.trim();
+                        if (!formData.skills.includes(newSkill)) {
+                          setFormData({
+                            ...formData,
+                            skills: [...formData.skills, newSkill],
+                          });
                         }
-                      }}
-                      className="w-full mt-4 p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:placeholder-white"
-                    />
-                  </div>
-                )}
-
-
-
-                {/* PROJECTS */}
-                {activeTab === "projects" && (
-                  <div>
-                    <h2 className="text-xl font-semibold dark:text-white">Projects</h2>
-
-                    {formData.projects.map((proj, index) => (
-                      <div
-                        key={index}
-                        className={`relative mb-4 pb-2 ${
-                          index > 0 ? "border-t border-gray-300" : ""
-                        }`}
-                      >
-                        {/* Delete button */}
-                        {index > 0 && (
-                          <button
-                            onClick={() => {
-                              const updatedProjects = formData.projects.filter((_, i) => i !== index);
-                              setFormData({ ...formData, projects: updatedProjects });
-                            }}
-                            className="absolute text-3xl -top-1 right-0 text-black hover:text-red-700 leading-none"
-                          >
-                            ×
-                          </button>
-                        )}
-
-                        <p className="mt-2 dark:text-gray-200">Project Name:</p>
-                        <input
-                          type="text"
-                          value={proj.name}
-                          onChange={(e) =>
-                            handleChange("projects", "name", e.target.value, index)
-                          }
-                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
-                        />
-
-                        <p className="mt-2 dark:text-gray-200">Description:</p>
-                        <textarea
-                          value={proj.description}
-                          onChange={(e) =>
-                            handleChange("projects", "description", e.target.value, index)
-                          }
-                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
-                          rows="3"
-                        />
-
-                        <p className="mt-2 dark:text-gray-200">Tech Stacks (ex. ReactJS + NodeJS + Express):</p>
-                        <input
-                          type="text"
-                          value={proj.tags.join(", ")}
-                          onChange={(e) =>
-                            handleChange(
-                              "projects",
-                              "tags",
-                              e.target.value.split(",").map((tag) => tag.trim()),
-                              index
-                            )
-                          }
-                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
-                        />
-                      </div>
-                    ))}
-
-                    {/* Add More Button */}
-                    <button
-                      onClick={() =>
-                        setFormData({
-                          ...formData,
-                          projects: [...formData.projects, { name: "", description: "", tags: [] }],
-                        })
+                        e.target.value = "";
                       }
-                      className="mt-2 px-4 py-2 bg-black dark:bg-white text-sm text-white dark:text-black rounded-3xl"
+                    }}
+                    className="w-full mt-4 p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:placeholder-white"
+                  />
+                </div>
+              )}
+
+              {/* PROJECTS */}
+              {activeTab === "projects" && (
+                <div>
+                  <h2 className="text-xl font-semibold dark:text-white">Projects</h2>
+
+                  {formData.projects.map((proj, index) => (
+                    <div
+                      key={index}
+                      className={`relative mb-4 pb-2 ${
+                        index > 0 ? "border-t border-gray-300" : ""
+                      }`}
                     >
-                      + Add More
-                    </button>
-                  </div>
-                )}
+                      {index > 0 && (
+                        <button
+                          onClick={() => {
+                            const updatedProjects = formData.projects.filter((_, i) => i !== index);
+                            setFormData({ ...formData, projects: updatedProjects });
+                          }}
+                          className="absolute text-3xl -top-1 right-0 text-black hover:text-red-700 leading-none"
+                        >
+                          ×
+                        </button>
+                      )}
 
+                      <p className="mt-2 dark:text-gray-200">Project Name:</p>
+                      <input
+                        type="text"
+                        value={proj.name}
+                        onChange={(e) =>
+                          handleChange("projects", "name", e.target.value, index)
+                        }
+                        className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
+                      />
 
-                {/* CERTIFICATES */}
-                {activeTab === "certificates" && (
-                  <div>
-                    <h2 className="text-xl font-semibold dark:text-white">Certificates</h2>
+                      <p className="mt-2 dark:text-gray-200">Description:</p>
+                      <textarea
+                        value={proj.description}
+                        onChange={(e) =>
+                          handleChange("projects", "description", e.target.value, index)
+                        }
+                        className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
+                        rows="3"
+                      />
 
-                    {formData.certificates.map((cert, index) => (
-                      <div
-                        key={index}
-                        className={`relative mb-4 ${
-                          index > 0 ? "border-t border-gray-300 pt-4" : ""
-                        }`}
-                      >
-                        {index > 0 && (
-                          <button
-                            onClick={() => {
-                              const updatedCertificates = formData.certificates.filter(
-                                (_, i) => i !== index
-                              );
-                              setFormData({ ...formData, certificates: updatedCertificates });
-                            }}
-                            className="absolute text-3xl -top-1 right-0 text-black hover:text-red-700"
-                          >
-                            ×
-                          </button>
-                        )}
+                      <p className="mt-2 dark:text-gray-200">Tech Stacks (ex. ReactJS + NodeJS + Express):</p>
+                      <input
+                        type="text"
+                        value={proj.tags.join(", ")}
+                        onChange={(e) =>
+                          handleChange(
+                            "projects",
+                            "tags",
+                            e.target.value.split(",").map((tag) => tag.trim()),
+                            index
+                          )
+                        }
+                        className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
+                      />
+                    </div>
+                  ))}
 
-                        <p className="mt-2 dark:text-gray-200">Certificate Name:</p>
-                        <input
-                          type="text"
-                          value={cert.name}
-                          onChange={(e) =>
-                            handleChange("certificates", "name", e.target.value, index)
-                          }
-                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
-                        />
+                  <button
+                    onClick={() =>
+                      setFormData({
+                        ...formData,
+                        projects: [...formData.projects, { name: "", description: "", tags: [] }],
+                      })
+                    }
+                    className="mt-2 px-4 py-2 bg-black dark:bg-white text-sm text-white dark:text-black rounded-3xl"
+                  >
+                    + Add More
+                  </button>
+                </div>
+              )}
 
-                        <p className="mt-2 dark:text-gray-200">Issued By:</p>
-                        <input
-                          type="text"
-                          value={cert.issuer}
-                          onChange={(e) =>
-                            handleChange("certificates", "issuer", e.target.value, index)
-                          }
-                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
-                        />
+              {/* CERTIFICATES */}
+              {activeTab === "certificates" && (
+                <div>
+                  <h2 className="text-xl font-semibold dark:text-white">Certificates</h2>
 
-                        <p className="mt-2 dark:text-gray-200">Year:</p>
-                        <input
-                          type="text"
-                          value={cert.year}
-                          onChange={(e) =>
-                            handleChange("certificates", "year", e.target.value, index)
-                          }
-                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
-                        />
-                      </div>
-                    ))}
-
-                    {/* Add More Button */}
-                    <button
-                      onClick={() =>
-                        setFormData({
-                          ...formData,
-                          certificates: [
-                            ...formData.certificates,
-                            { name: "", issuer: "", year: "" },
-                          ],
-                        })
-                      }
-                      className="mt-2 px-4 py-2 bg-black dark:bg-white text-sm text-white dark:text-black rounded-3xl"
+                  {formData.certificates.map((cert, index) => (
+                    <div
+                      key={index}
+                      className={`relative mb-4 ${
+                        index > 0 ? "border-t border-gray-300 pt-4" : ""
+                      }`}
                     >
-                      + Add More
-                    </button>
-                  </div>
-                )}
+                      {index > 0 && (
+                        <button
+                          onClick={() => {
+                            const updatedCertificates = formData.certificates.filter(
+                              (_, i) => i !== index
+                            );
+                            setFormData({ ...formData, certificates: updatedCertificates });
+                          }}
+                          className="absolute text-3xl -top-1 right-0 text-black hover:text-red-700"
+                        >
+                          ×
+                        </button>
+                      )}
 
+                      <p className="mt-2 dark:text-gray-200">Certificate Name:</p>
+                      <input
+                        type="text"
+                        value={cert.name}
+                        onChange={(e) =>
+                          handleChange("certificates", "name", e.target.value, index)
+                        }
+                        className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
+                      />
 
-              </div>
+                      <p className="mt-2 dark:text-gray-200">Issued By:</p>
+                      <input
+                        type="text"
+                        value={cert.issuer}
+                        onChange={(e) =>
+                          handleChange("certificates", "issuer", e.target.value, index)
+                        }
+                        className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
+                      />
+
+                      <p className="mt-2 dark:text-gray-200">Year:</p>
+                      <input
+                        type="text"
+                        value={cert.year}
+                        onChange={(e) =>
+                          handleChange("certificates", "year", e.target.value, index)
+                        }
+                        className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
+                      />
+                    </div>
+                  ))}
+
+                  <button
+                    onClick={() =>
+                      setFormData({
+                        ...formData,
+                        certificates: [
+                          ...formData.certificates,
+                          { name: "", issuer: "", year: "" },
+                        ],
+                      })
+                    }
+                    className="mt-2 px-4 py-2 bg-black dark:bg-white text-sm text-white dark:text-black rounded-3xl"
+                  >
+                    + Add More
+                  </button>
+                </div>
+              )}
             </div>
+          </div>
 
             {/* Right Panel */}
             <div className="flex flex-col px-0 sm:px-6 w-full">
               <div className="w-full overflow-x-auto overflow-y-auto scrollbar-hide flex justify-center max-h-[550px] rounded-lg dark:bg-[#393E46] shadow-md bg-gray-50">
                 <ResumePreview data={formData} />
               </div>
-
               <div className="flex justify-center sm:justify-end mt-4">
                 <button
                   onClick={() => setShowModal(true)}
@@ -558,9 +535,6 @@ function App() {
                 </button>
               </div>
             </div>
-
-
-
           </div>
           
           {/* FOOTER */}
@@ -604,7 +578,6 @@ function App() {
               <ResumePreview data={formData} />
             </div>
 
-            {/* Confirm Download */}
             <div className="flex gap-2 sm:gap-4 mt-4 px-4 sm:px-10">
               <PDFDownloadLink
                 document={<ResumePDF data={formData} />}
@@ -623,7 +596,6 @@ function App() {
                 Customize
               </button>
             </div>
-
 
           </div>
         </div>

@@ -18,6 +18,7 @@ function ResumePreview({ data }) {
         "
         style={{ fontFamily: "'Times New Roman', Times, serif" }}
       >
+
         {/* PERSONAL */}
         <h1 className="text-[20px] sm:text-[24px] font-bold mb-1 text-center border-b border-gray-300 ">
           {data.personal.name || "Your Name"}
@@ -47,7 +48,6 @@ function ResumePreview({ data }) {
           </div>
         ))}
 
-
         {/* EXPERIENCE */}
         <h2 className="text-[14px] sm:text-[16px] font-bold mb-1 border-b border-gray-300 mt-4">
           Experience
@@ -69,7 +69,6 @@ function ResumePreview({ data }) {
           </div>
         ))}
 
-
         {/* SKILLS */}
         <h2 className="text-[14px] sm:text-[16px] font-bold mb-1 border-b border-gray-300 mt-4">
           Skills
@@ -82,7 +81,6 @@ function ResumePreview({ data }) {
           )}
         </div>
 
-
         {/* PROJECTS */}
         <h2 className="text-[14px] sm:text-[16px] font-bold mb-1 border-b border-gray-300 mt-4">
           Projects
@@ -91,18 +89,15 @@ function ResumePreview({ data }) {
           data.projects.map((proj, index) => (
             <div key={index} className="mb-3">
               <div className="flex flex-row justify-between items-start">
-                {/* Left side: name */}
                 <div>
                   <p className="text-[12px] sm:text-[14px] font-semibold">{proj.name}</p>
                 </div>
 
-                {/* Right side: tags */}
                 <div className="text-end text-[12px] text-gray-600 break-words whitespace-normal max-w-[200px] dark:text-white">
                   {proj.tags && proj.tags.length > 0 ? proj.tags.join(", ") : ""}
                 </div>
               </div>
 
-              {/* Description below, full width just like Experience */}
               {proj.description && (
                 <p className="text-[10px] sm:text-[12px] text-gray-700 mt-1 text-justify break-words whitespace-normal max-w-full dark:text-white">
                   {proj.description}
@@ -135,7 +130,6 @@ function ResumePreview({ data }) {
         ) : (
           <p className="text-[11px] sm:text-[13px] text-gray-500">No certificates added</p>
         )}
-
 
       </div>
     </div>
