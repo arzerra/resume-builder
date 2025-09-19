@@ -98,7 +98,7 @@ function App() {
                       onChange={(e) =>
                         handleChange("personal", "name", e.target.value)
                       }
-                      className="w-full p-2 rounded hover:"
+                      className="w-full p-2 rounded border border-gray-600 dark:border-white"
                     />
                     <p className="mt-2 dark:text-gray-200">Phone:</p>
                     <input
@@ -108,7 +108,7 @@ function App() {
                       onChange={(e) =>
                         handleChange("personal", "phone", e.target.value)
                       }
-                      className="w-full p-2 rounded"
+                      className="w-full p-2 rounded border border-gray-600"
                     />
                     <p className="mt-2 dark:text-gray-200">Email Address:</p>
                     <input
