@@ -47,10 +47,10 @@ function App() {
 
   return (
     <>
-      <div className="w-full min-h-screen bg-[#E4E4E4] dark:bg-[#222831] font-['Quicksand']">
+      <div className="w-full min-h-screen bg-[#F2F2F2] dark:bg-[#222831] font-['Quicksand']">
         <div className="max-w-[1300px] w-full mx-auto px-4 sm:px-0">
           
-          <div className="flex flex-row items-center justify-between pt-5 sm:pt-10 pb-0">
+          <div className="flex flex-row items-center justify-between pt-5 sm:pt-15 pb-0">
             <div className="flex flex-col items-start justify-start text-start mt-8">
               <h1 className="text-3xl sm:text-5xl font-bold mb-2 dark:text-white">
                 Resume Builder
@@ -67,17 +67,18 @@ function App() {
 
           <div className="grid sm:grid-cols-2 gap-5 items-start mt-3 sm:mt-5">
             <div>
+
               {/* TABS*/}
               <div className="flex items-center justify-between gap-2 sm:gap-6 mb-3 overflow-x-auto no-scrollbar">
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`whitespace-nowrap pb-2 text-[13px] sm:text-lg font-medium transition-colors ${
-                      activeTab === tab.id
-                        ? "text-gray-900 border-b-2 dark:border-white border-gray-600 dark:text-white"
-                        : "text-gray-600 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white"
-                    }`}
+                    className={`relative whitespace-nowrap pb-2 text-[13px] sm:text-lg font-medium transition-colors 
+                      ${activeTab === tab.id
+                        ? "text-gray-900 dark:text-white after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:bg-gray-600 dark:after:bg-white"
+                        : "text-gray-600 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-gray-600 dark:after:bg-white after:transition-all after:duration-300 hover:after:w-full"
+                      }`}
                   >
                     {tab.label}
                   </button>
@@ -85,7 +86,7 @@ function App() {
               </div>
 
               {/* PERSONAL */}
-              <div className="bg-[#F7F7F7] dark:bg-[#393E46] p-6 rounded-lg shadow-md">
+              <div className="bg-white dark:bg-[#393E46] p-6 rounded-lg shadow-md">
                 {activeTab === "personal" && (
                   <div>
                     <h2 className="text-xl font-semibold dark:text-white mb-2">
@@ -98,7 +99,7 @@ function App() {
                       onChange={(e) =>
                         handleChange("personal", "name", e.target.value)
                       }
-                      className="w-full p-2 rounded border border-gray-600 dark:border-white"
+                      className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                     />
                     <p className="mt-2 dark:text-gray-200">Phone:</p>
                     <input
@@ -108,7 +109,7 @@ function App() {
                       onChange={(e) =>
                         handleChange("personal", "phone", e.target.value)
                       }
-                      className="w-full p-2 rounded border border-gray-600"
+                      className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                     />
                     <p className="mt-2 dark:text-gray-200">Email Address:</p>
                     <input
@@ -117,7 +118,7 @@ function App() {
                       onChange={(e) =>
                         handleChange("personal", "email", e.target.value)
                       }
-                      className="w-full p-2 rounded"
+                      className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                     />
                     <p className="mt-2 dark:text-gray-200">Location:</p>
                     <input
@@ -126,64 +127,87 @@ function App() {
                       onChange={(e) =>
                         handleChange("personal", "location", e.target.value)
                       }
-                      className="w-full p-2 rounded"
+                      className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                     />
                   </div>
                 )}
 
                 {/* EDUCATION */}
                 {activeTab === "education" && (
-                  <div>
-                    <h2 className="text-xl font-semibold dark:text-white">Education</h2>
+                <div>
+                  <h2 className="text-xl font-semibold dark:text-white">Education</h2>
 
-                    {formData.education.map((edu, index) => (
-                      <div key={index} className="mb-4 border-b border-gray-300 pb-2">
-                        <p className="mt-2 dark:text-gray-200">School:</p>
-                        <input
-                          type="text"
-                          value={edu.school}
-                          onChange={(e) =>
-                            handleChange("education", "school", e.target.value, index)
-                          }
-                          className="w-full p-2 rounded"
-                        />
-
-                        <p className="mt-2 dark:text-gray-200">Course:</p>
-                        <input
-                          type="text"
-                          value={edu.course}
-                          onChange={(e) =>
-                            handleChange("education", "course", e.target.value, index)
-                          }
-                          className="w-full p-2 rounded"
-                        />
-
-                        <p className="mt-2 dark:text-gray-200">Year:</p>
-                        <input
-                          type="text"
-                          value={edu.year}
-                          onChange={(e) =>
-                            handleChange("education", "year", e.target.value, index)
-                          }
-                          className="w-full p-2 rounded"
-                        />
-                      </div>
-                    ))}
-
-                    {/* Add More Button */}
-                    <button
-                      onClick={() =>
-                        setFormData({
-                          ...formData,
-                          education: [...formData.education, { school: "", course: "", year: "" }],
-                        })
-                      }
-                      className="mt-2 px-4 py-2 bg-blue-600 text-white rounded"
+                  {formData.education.map((edu, index) => (
+                    <div
+                      key={index}
+                      className={`relative mb-4 pb-2 ${
+                        index > 0 ? "border-t border-gray-300" : ""
+                      }`}
                     >
-                      + Add More
-                    </button>
-                  </div>
-                )}
+                      {/* Delete button */}
+                      {index > 0 && (
+                        <button
+                          onClick={() => {
+                            const updatedEducation = formData.education.filter((_, i) => i !== index);
+                            setFormData({ ...formData, education: updatedEducation });
+                          }}
+                          className="absolute text-3xl top-0 right-0 text-black dark:text-white hover:text-red-700 leading-none"
+                        >
+                          ×
+                        </button>
+                      )}
+
+                      <p className="mt-2 dark:text-gray-200">School:</p>
+                      <input
+                        type="text"
+                        value={edu.school}
+                        onChange={(e) =>
+                          handleChange("education", "school", e.target.value, index)
+                        }
+                        className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
+                      />
+
+                      <p className="mt-2 dark:text-gray-200">Course:</p>
+                      <input
+                        type="text"
+                        value={edu.course}
+                        onChange={(e) =>
+                          handleChange("education", "course", e.target.value, index)
+                        }
+                        className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
+                      />
+
+                      <p className="mt-2 dark:text-gray-200">Year:</p>
+                      <input
+                        type="text"
+                        value={edu.year}
+                        onChange={(e) =>
+                          handleChange("education", "year", e.target.value, index)
+                        }
+                        className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
+                      />
+                    </div>
+                  ))}
+
+
+                  {/* Add More Button */}
+                  <button
+                    onClick={() =>
+                      setFormData({
+                        ...formData,
+                        education: [
+                          ...formData.education,
+                          { school: "", course: "", year: "" },
+                        ],
+                      })
+                    }
+                    className="mt-2 px-4 py-2 bg-black dark:bg-white text-sm text-white dark:text-black rounded-3xl"
+                  >
+                    + Add More
+                  </button>
+                </div>
+              )}
+
 
 
 
@@ -193,7 +217,27 @@ function App() {
                     <h2 className="text-xl font-semibold dark:text-white">Experience</h2>
 
                     {formData.experience.map((exp, index) => (
-                      <div key={index} className="mb-4 border-b border-gray-300 pb-2">
+                      <div
+                        key={index}
+                        className={`relative mb-4 pb-2 ${
+                          index > 0 ? "border-t border-gray-300" : ""
+                        }`}
+                      >
+                        {/* Delete button */}
+                        {index > 0 && (
+                          <button
+                            onClick={() => {
+                              const updatedExperience = formData.experience.filter(
+                                (_, i) => i !== index
+                              );
+                              setFormData({ ...formData, experience: updatedExperience });
+                            }}
+                            className="absolute text-3xl -top-1 right-0 text-black hover:text-red-700 leading-none"
+                          >
+                            ×
+                          </button>
+                        )}
+
                         <p className="mt-2 dark:text-gray-200">Company:</p>
                         <input
                           type="text"
@@ -201,7 +245,7 @@ function App() {
                           onChange={(e) =>
                             handleChange("experience", "company", e.target.value, index)
                           }
-                          className="w-full p-2 rounded"
+                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                         />
 
                         <p className="mt-2 dark:text-gray-200">Role/Title:</p>
@@ -211,7 +255,7 @@ function App() {
                           onChange={(e) =>
                             handleChange("experience", "role", e.target.value, index)
                           }
-                          className="w-full p-2 rounded"
+                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                         />
 
                         <p className="mt-2 dark:text-gray-200">Year:</p>
@@ -221,7 +265,7 @@ function App() {
                           onChange={(e) =>
                             handleChange("experience", "year", e.target.value, index)
                           }
-                          className="w-full p-2 rounded"
+                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                         />
 
                         <p className="mt-2 dark:text-gray-200">Description:</p>
@@ -230,9 +274,10 @@ function App() {
                           onChange={(e) =>
                             handleChange("experience", "description", e.target.value, index)
                           }
-                          className="w-full p-2 rounded"
+                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                           rows="3"
                         />
+
                       </div>
                     ))}
 
@@ -243,27 +288,31 @@ function App() {
                           ...formData,
                           experience: [
                             ...formData.experience,
-                            { company: "", role: "", year: "", description: "" },
+                            { company: "", role: "", description: "", year: "" },
                           ],
                         })
                       }
-                      className="px-4 py-2 bg-blue-600 text-white rounded"
+                      className="mt-2 px-4 py-2 bg-black dark:bg-white text-sm text-white dark:text-black rounded-3xl"
                     >
-                      Add More
+                      + Add More
                     </button>
                   </div>
                 )}
 
 
 
+
                 {/* SKILLS */}
                 {activeTab === "skills" && (
                   <div>
-                    <h2 className="text-xl font-semibold dark:text-white">Skills</h2>
+                    <h2 className="text-xl font-semibold dark:text-white">Tech Stacks</h2>
 
                     {/* Predefined tags */}
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {["NodeJS", "Express", "Laravel", "TailwindCSS", "JSON", "jQuery"].map(
+                    <div className="flex flex-wrap justify-between gap-2 mt-2">
+                      {["NodeJS", "Express", "Laravel", "TailwindCSS", "JSON", "jQuery", "React",
+                        "Next.js", "Vue.js", "Angular", "TypeScript", "JavaScript", "HTML5",
+                        "CSS3", "Bootstrap", "Sass", "PHP", "MySQL", "PostgreSQL", "MongoDB", "SQLite",
+                        "REST API", "GraphQL", "Docker", "Git", "GitHub", "Firebase", "Vercel"].map(
                         (tag) => (
                           <button
                             key={tag}
@@ -276,10 +325,10 @@ function App() {
                                 });
                               }
                             }}
-                            className={`px-3 py-1 rounded-full border ${
+                            className={`px-3 py-1 text-sm rounded-full cursor-pointer ${
                               formData.skills.includes(tag)
-                                ? "bg-blue-600 text-white"
-                                : "bg-gray-200 dark:bg-gray-600 dark:text-white"
+                                ? "bg-gray-300 dark:bg-gray-900 text-white"
+                                : "bg-black dark:bg-white text-white dark:text-black"
                             }`}
                           >
                             {tag}
@@ -293,20 +342,20 @@ function App() {
                       {formData.skills.map((skill, index) => (
                         <span
                           key={index}
-                          className="px-3 py-1 bg-green-600 text-white rounded-full text-sm flex items-center gap-2"
-                        >
-                          {skill}
-                          <button
-                            type="button"
-                            onClick={() => {
+                          onClick={() => {
                               setFormData({
                                 ...formData,
                                 skills: formData.skills.filter((s) => s !== skill),
                               });
                             }}
-                            className="text-xs bg-red-500 px-2 rounded-full"
+                          className="px-3 py-1 bg-[#118B50] text-white rounded-full text-sm flex items-center gap-2 cursor-pointer"
+                        >
+                          {skill}
+                          <button
+                            type="button"
+                            className="text-xl"
                           >
-                            ✕
+                            ×
                           </button>
                         </span>
                       ))}
@@ -315,7 +364,7 @@ function App() {
                     {/* Custom skill input */}
                     <input
                       type="text"
-                      placeholder="Add custom skill"
+                      placeholder="Add More"
                       onKeyDown={(e) => {
                         if (e.key === "Enter" && e.target.value.trim()) {
                           e.preventDefault();
@@ -329,7 +378,7 @@ function App() {
                           e.target.value = "";
                         }
                       }}
-                      className="w-full mt-4 p-2 rounded border"
+                      className="w-full mt-4 p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:placeholder-white"
                     />
                   </div>
                 )}
@@ -342,7 +391,25 @@ function App() {
                     <h2 className="text-xl font-semibold dark:text-white">Projects</h2>
 
                     {formData.projects.map((proj, index) => (
-                      <div key={index} className="mb-4 border-b border-gray-300 pb-2">
+                      <div
+                        key={index}
+                        className={`relative mb-4 pb-2 ${
+                          index > 0 ? "border-t border-gray-300" : ""
+                        }`}
+                      >
+                        {/* Delete button */}
+                        {index > 0 && (
+                          <button
+                            onClick={() => {
+                              const updatedProjects = formData.projects.filter((_, i) => i !== index);
+                              setFormData({ ...formData, projects: updatedProjects });
+                            }}
+                            className="absolute text-3xl -top-1 right-0 text-black hover:text-red-700 leading-none"
+                          >
+                            ×
+                          </button>
+                        )}
+
                         <p className="mt-2 dark:text-gray-200">Project Name:</p>
                         <input
                           type="text"
@@ -350,7 +417,7 @@ function App() {
                           onChange={(e) =>
                             handleChange("projects", "name", e.target.value, index)
                           }
-                          className="w-full p-2 rounded"
+                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                         />
 
                         <p className="mt-2 dark:text-gray-200">Description:</p>
@@ -359,11 +426,11 @@ function App() {
                           onChange={(e) =>
                             handleChange("projects", "description", e.target.value, index)
                           }
-                          className="w-full p-2 rounded"
+                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                           rows="3"
                         />
 
-                        <p className="mt-2 dark:text-gray-200">Tags (comma-separated):</p>
+                        <p className="mt-2 dark:text-gray-200">Tech Stacks (ex. ReactJS + NodeJS + Express):</p>
                         <input
                           type="text"
                           value={proj.tags.join(", ")}
@@ -375,7 +442,7 @@ function App() {
                               index
                             )
                           }
-                          className="w-full p-2 rounded"
+                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                         />
                       </div>
                     ))}
@@ -385,18 +452,16 @@ function App() {
                       onClick={() =>
                         setFormData({
                           ...formData,
-                          projects: [
-                            ...formData.projects,
-                            { name: "", description: "", tags: [] },
-                          ],
+                          projects: [...formData.projects, { name: "", description: "", tags: [] }],
                         })
                       }
-                      className="mt-2 px-4 py-2 bg-blue-600 text-white rounded"
+                      className="mt-2 px-4 py-2 bg-black dark:bg-white text-sm text-white dark:text-black rounded-3xl"
                     >
                       + Add More
                     </button>
                   </div>
                 )}
+
 
                 {/* CERTIFICATES */}
                 {activeTab === "certificates" && (
@@ -404,7 +469,26 @@ function App() {
                     <h2 className="text-xl font-semibold dark:text-white">Certificates</h2>
 
                     {formData.certificates.map((cert, index) => (
-                      <div key={index} className="mb-4 border-b border-gray-300 pb-2">
+                      <div
+                        key={index}
+                        className={`relative mb-4 ${
+                          index > 0 ? "border-t border-gray-300 pt-4" : ""
+                        }`}
+                      >
+                        {index > 0 && (
+                          <button
+                            onClick={() => {
+                              const updatedCertificates = formData.certificates.filter(
+                                (_, i) => i !== index
+                              );
+                              setFormData({ ...formData, certificates: updatedCertificates });
+                            }}
+                            className="absolute text-3xl -top-1 right-0 text-black hover:text-red-700"
+                          >
+                            ×
+                          </button>
+                        )}
+
                         <p className="mt-2 dark:text-gray-200">Certificate Name:</p>
                         <input
                           type="text"
@@ -412,7 +496,7 @@ function App() {
                           onChange={(e) =>
                             handleChange("certificates", "name", e.target.value, index)
                           }
-                          className="w-full p-2 rounded"
+                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                         />
 
                         <p className="mt-2 dark:text-gray-200">Issued By:</p>
@@ -422,7 +506,7 @@ function App() {
                           onChange={(e) =>
                             handleChange("certificates", "issuer", e.target.value, index)
                           }
-                          className="w-full p-2 rounded"
+                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                         />
 
                         <p className="mt-2 dark:text-gray-200">Year:</p>
@@ -432,7 +516,7 @@ function App() {
                           onChange={(e) =>
                             handleChange("certificates", "year", e.target.value, index)
                           }
-                          className="w-full p-2 rounded"
+                          className="w-full p-2 rounded-md border border-gray-400 focus:border-gray-600 focus:outline-none dark:focus:border-white dark:text-white"
                         />
                       </div>
                     ))}
@@ -448,37 +532,39 @@ function App() {
                           ],
                         })
                       }
-                      className="mt-2 px-4 py-2 bg-blue-600 text-white rounded"
+                      className="mt-2 px-4 py-2 bg-black dark:bg-white text-sm text-white dark:text-black rounded-3xl"
                     >
                       + Add More
                     </button>
                   </div>
                 )}
 
+
               </div>
             </div>
 
             {/* Right Panel */}
-            <div className="flex flex-col items-center px-0 sm:px-4 w-full">
-              {/* Scrollable preview container */}
-              <div className="w-full overflow-x-auto flex justify-center max-h-[550px] overflow-y-auto rounded-md bg-gray-50">
+            <div className="flex flex-col px-0 sm:px-6 w-full">
+              <div className="w-full overflow-x-auto overflow-y-auto scrollbar-hide flex justify-center max-h-[550px] rounded-lg dark:bg-[#393E46] shadow-md bg-gray-50">
                 <ResumePreview data={formData} />
               </div>
 
-              {/* Button to open modal */}
-              <button
-                onClick={() => setShowModal(true)}
-                className="px-6 py-3 mt-4 bg-blue-600 text-white rounded-md shadow-md"
-              >
-                Preview & Download
-              </button>
+              <div className="flex justify-center sm:justify-end mt-4">
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="px-6 py-3 bg-black dark:bg-white text-white dark:text-black rounded-4xl shadow-md text-sm"
+                >
+                  Preview & Download
+                </button>
+              </div>
             </div>
+
 
 
           </div>
           
           {/* FOOTER */}
-          <div className="flex flex-col items-center justify-center py-5 dark:text-white">
+          <div className="flex flex-col items-center justify-center pb-5 pt-10 dark:text-white">
               <h1>&copy; Ian Clark L. Cañete 2025 - All Rights Reserved</h1>
               <div className="flex flex-row gap-2 mt-2 sm:mt-2">
                 <a href="https://www.facebook.com/Ic.0716" target="_blank" rel="noopener noreferrer">
@@ -498,12 +584,12 @@ function App() {
       {/* Modal */}
       {showModal && (
         <div
-          className="fixed inset-0 bg-black/30 border backdrop-blur-sm flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50"
           onClick={() => setShowModal(false)}
         >
 
           <div
-            className="max-w-[595px] w-full relative border"
+            className="w-[90%] sm:w-[80%] md:max-w-[595px] relative"
             onClick={(e) => e.stopPropagation()}
           >
 
@@ -519,24 +605,25 @@ function App() {
             </div>
 
             {/* Confirm Download */}
-            <div className="flex gap-4 mt-4">
+            <div className="flex gap-2 sm:gap-4 mt-4 px-4 sm:px-10">
               <PDFDownloadLink
                 document={<ResumePDF data={formData} />}
                 fileName="resume.pdf"
-                className="px-6 py-3 bg-green-600 text-white rounded-md shadow-md inline-block text-center"
+                className="w-1/2 px-3 py-4 sm:px-6 sm:py-4 bg-[#118B50] text-sm text-white rounded-xl shadow-md text-center"
               >
                 {({ loading }) =>
-                  loading ? "Preparing PDF..." : "Confirm & Download"
+                  loading ? "Preparing..." : "Download"
                 }
               </PDFDownloadLink>
 
               <button
                 onClick={() => setShowModal(false)}
-                className="px-6 py-3 bg-gray-500 text-white rounded-md shadow-md"
+                className="w-1/2 px-3 py-4 sm:px-6 sm:py-3 bg-black text-sm text-white rounded-xl shadow-md"
               >
-                Cancel
+                Customize
               </button>
             </div>
+
 
           </div>
         </div>

@@ -6,12 +6,12 @@ import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 const styles = StyleSheet.create({
   page: {
     padding: 40,
-    fontSize: 11,
-    fontFamily: "Times-Roman", // closest to serif
+    fontSize: 12,
+    fontFamily: "Times-Roman",
     backgroundColor: "white",
   },
   header: {
-    fontSize: 24,
+    fontSize: 24, // matches preview
     fontWeight: "bold",
     marginBottom: 4,
     textAlign: "center",
@@ -20,15 +20,15 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
   },
   subHeader: {
-    fontSize: 12,
-    marginBottom: 5,
+    fontSize: 12, // matches preview
+    marginBottom: 8,
     textAlign: "center",
     color: "#444",
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 16, // matches preview
     fontWeight: "bold",
-    marginTop: 10,
+    marginTop: 12,
     marginBottom: 6,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
@@ -43,15 +43,22 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   textBold: {
-    fontSize: 12,
+    fontSize: 14, // matches preview
     fontWeight: "bold",
     marginBottom: 1,
   },
-  text: {
-    fontSize: 11,
+  textItalic: {
+    fontSize: 13, // matches preview
+    fontStyle: "italic",
     marginBottom: 2,
   },
+  text: {
+    fontSize: 12, // matches preview
+    marginBottom: 2,
+    textAlign: "justify",
+  },
 });
+
 
 const ResumePDF = ({ data }) => (
   <Document>
@@ -87,7 +94,7 @@ const ResumePDF = ({ data }) => (
             <View style={styles.flexRow}>
               <View>
                 <Text style={styles.textBold}>{exp.company}</Text>
-                <Text style={styles.text}>{exp.role}</Text>
+                <Text style={styles.textItalic}>{exp.role}</Text>
               </View>
               <View>
                 <Text style={styles.text}>{exp.year}</Text>
@@ -147,25 +154,39 @@ const ResumePDF = ({ data }) => (
        {/* CERTIFICATES */}
       <Text style={styles.sectionTitle}>Certificates</Text>
       {data.certificates && data.certificates.length > 0 ? (
-        data.certificates.map((cert, index) => (
-          <View key={index} style={[styles.section]}>
-            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-              <View>
-                <Text style={styles.textBold}>{cert.name}</Text>
-                <Text style={styles.text}>{cert.issuer}</Text>
+        <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 4 }}>
+          {data.certificates.map((cert, index) => (
+            <View
+              key={index}
+              style={{
+                width: "50%", // 2 per row
+                paddingRight: 8,
+                marginBottom: 6,
+                borderBottom: "1pt solid #ccc", // underline effect
+                paddingBottom: 4,
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "start", // aligns year with name
+                }}
+              >
+                <View>
+                  <Text style={styles.textBold}>{cert.name}</Text>
+                  <Text style={[styles.text, { fontStyle: "italic" }]}>
+                    {cert.issuer}
+                  </Text>
+                </View>
+                <Text style={styles.text}>{cert.year}</Text>
               </View>
-              <Text style={styles.text}>{cert.year}</Text>
             </View>
-          </View>
-        ))
+          ))}
+        </View>
       ) : (
         <Text style={styles.text}>No certificates added</Text>
       )}
-
-
-
-
-
 
     </Page>
   </Document>
